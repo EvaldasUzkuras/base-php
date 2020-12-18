@@ -48,6 +48,9 @@ RUN set -eux; \
 	chown www-data:www-data /var/www/html; \
 	chmod 777 /var/www/html
 
+# https://github.com/docker-library/php/pull/939#issuecomment-730501748
+ENV PHP_EXTRA_CONFIGURE_ARGS --enable-embed
+
 # Apply stack smash protection to functions using local buffers and alloca()
 # Make PHP's main executable position-independent (improves ASLR security mechanism, and has no performance impact on x86_64)
 # Enable optimization (-O2)
@@ -60,9 +63,9 @@ ENV PHP_LDFLAGS="-Wl,-O1 -pie"
 
 ENV GPG_KEYS 42670A7FE4D0441C8E4632349E4FDC074A4EF02D 5A52880781F755608BF815FC910DEB46F53EA312
 
-ENV PHP_VERSION 7.4.10
-ENV PHP_URL="https://www.php.net/distributions/php-7.4.10.tar.xz" PHP_ASC_URL="https://www.php.net/distributions/php-7.4.10.tar.xz.asc"
-ENV PHP_SHA256="c2d90b00b14284588a787b100dee54c2400e7db995b457864d66f00ad64fb010" PHP_MD5=""
+ENV PHP_VERSION 7.4.13
+ENV PHP_URL="https://www.php.net/distributions/php-7.4.13.tar.xz" PHP_ASC_URL="https://www.php.net/distributions/php-7.4.13.tar.xz.asc"
+ENV PHP_SHA256="aead303e3abac23106529560547baebbedba0bb2943b91d5aa08fff1f41680f4"
 
 RUN set -eux; \
 	\
@@ -78,9 +81,6 @@ RUN set -eux; \
 	\
 	if [ -n "$PHP_SHA256" ]; then \
 		echo "$PHP_SHA256 *php.tar.xz" | sha256sum -c -; \
-	fi; \
-	if [ -n "$PHP_MD5" ]; then \
-		echo "$PHP_MD5 *php.tar.xz" | md5sum -c -; \
 	fi; \
 	\
 	if [ -n "$PHP_ASC_URL" ]; then \
@@ -142,6 +142,9 @@ RUN set -eux; \
 # https://github.com/docker-library/php/issues/439
 		--with-mhash \
 		\
+# https://github.com/docker-library/php/issues/822
+		--with-pic \
+		\
 # --enable-ftp is included here because ftp_ssl_connect() needs ftp to be compiled statically (see https://github.com/docker-library/php/issues/236)
 		--enable-ftp \
 # --enable-mbstring is included here because otherwise there's no way to get pecl to use it properly (see https://github.com/docker-library/php/issues/195)
@@ -162,7 +165,6 @@ RUN set -eux; \
 		--with-zlib \
 		\
 # in PHP 7.4+, the pecl/pear installers are officially deprecated (requiring an explicit "--with-pear")
-# ... and are removed in PHP 8+; see also https://github.com/docker-library/php/pull/847#issuecomment-505638229
 		--with-pear \
 		\
 # bundled pcre does not support JIT on s390x

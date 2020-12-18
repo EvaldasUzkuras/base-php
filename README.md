@@ -28,7 +28,7 @@ Supported tags and respective `Dockerfile` links
 * `7.3.21-debug`, `7.3-debug` [_(7.3/alpine3.12/fpm/Dockerfile.wodby)_]
 * `7.2.33-debug`, `7.2-debug` [_(7.2/alpine3.12/fpm/Dockerfile.wodby)_]
 
-## Configurable image with pre-compiled extensions
+## Configurable images with pre-compiled extensions
 
 For actual development and production usage see descendant image [wodby/php](https://github.com/wodby/php)
 
