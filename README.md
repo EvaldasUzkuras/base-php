@@ -1,37 +1,27 @@
 # About this Repo
 
-[![Build Status](https://travis-ci.org/wodby/base-php.svg?branch=master)](https://travis-ci.org/wodby/base-php)
+[![Build Status](https://github.com/wodby/base-php/workflows/Build%20docker%20image/badge.svg)](https://github.com/wodby/base-php/actions)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wodby/base-php.svg)](https://hub.docker.com/r/wodby/base-php)
 [![Docker Stars](https://img.shields.io/docker/stars/wodby/base-php.svg)](https://hub.docker.com/r/wodby/base-php)
 [![Docker Layers](https://images.microbadger.com/badges/image/wodby/base-php.svg)](https://microbadger.com/images/wodby/base-php)
 
 This repository is a fork of https://github.com/docker-library/php with a few changes:
 
-* Base image set to [wodby/alpine](https://github.com/wodby/alpine) with stability tags
+* Base image set to [wodby/alpine](https://github.com/wodby/alpine)
 * We build only Alpine-based FPM variants
-* Additional debug variants of images with `--enable-debug` and non-stripped bins
+* All images based on [alpine](https://github.com/wodby/alpine) 3.13 version due to [this](https://github.com/alpinelinux/docker-alpine/issues/182) change in 3.14 that prevents us from running it on older docker versions
 
 ## Docker Images
 
 * All images based on Alpine Linux
 * Base image: [wodby/alpine](https://github.com/wodby/alpine)
-* [Travis CI builds](https://travis-ci.org/wodby/base-php) 
 * [Docker Hub](https://hub.docker.com/r/wodby/base-php)
-* Alpine version: 3.12
 
-Supported tags and respective `Dockerfile` links
+Supported tags and respective `Dockerfile` links:
 
-* `7.4.9`, `7.4`, `7`, `latest` [_(7.4/alpine3.12/fpm/Dockerfile.wodby)_]
-* `7.3.21`, `7.3` [_(7.3/alpine3.12/fpm/Dockerfile.wodby)_]
-* `7.2.33`, `7.2` [_(7.2/alpine3.12/fpm/Dockerfile.wodby)_]
-* `7.4.9-debug`, `7.4-debug`, `7-debug` [_(7.4/alpine3.12/fpm/Dockerfile.wodby)_]
-* `7.3.21-debug`, `7.3-debug` [_(7.3/alpine3.12/fpm/Dockerfile.wodby)_]
-* `7.2.33-debug`, `7.2-debug` [_(7.2/alpine3.12/fpm/Dockerfile.wodby)_]
+* `8.1.0`, `8.1`, `8`, `latest` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.1/alpine3.15/fpm/Dockerfile.wodby)
+* `8.0.13`, `8.0` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
+* `7.4.26`, `7.4`, `7` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
+* `7.3.33`, `7.3` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
 
-## Configurable images with pre-compiled extensions
-
-For actual development and production usage see descendant image [wodby/php](https://github.com/wodby/php)
-
-[_(7.4/alpine3.12/fpm/Dockerfile.wodby)_]: https://github.com/wodby/base-php/tree/master/7.4/alpine3.12/fpm/Dockerfile.wodby
-[_(7.3/alpine3.12/fpm/Dockerfile.wodby)_]: https://github.com/wodby/base-php/tree/master/7.3/alpine3.12/fpm/Dockerfile.wodby
-[_(7.2/alpine3.12/fpm/Dockerfile.wodby)_]: https://github.com/wodby/base-php/tree/master/7.2/alpine3.12/fpm/Dockerfile.wodby
+All images built for `linux/amd64` and `linux/arm64`

@@ -2,49 +2,20 @@
 
 set -ex
 
-cp Dockerfile-alpine.template tmp
+versions=('7.3' '7.4' '8.0' '8.1')
+for ver in "${versions[@]}"; do
+  cp ${ver}/alpine3.15/fpm/Dockerfile ${ver}/alpine3.15/fpm/Dockerfile.wodby
 
-# Change basic image.
-sed -i '/FROM alpine/i\ARG BASE_IMAGE_TAG\n' tmp
-sed -i '/FROM alpine/a\\nARG PHP_DEBUG' tmp
-sed -i 's/FROM alpine.*/FROM wodby\/alpine:${BASE_IMAGE_TAG}/' tmp
+  # Change basic image.
+  sed -i '/FROM alpine/i\ARG BASE_IMAGE_TAG\n' ${ver}/alpine3.15/fpm/Dockerfile.wodby
+  sed -i 's/FROM alpine.*/FROM wodby\/alpine:${BASE_IMAGE_TAG}/' ${ver}/alpine3.15/fpm/Dockerfile.wodby
 
-# For -debug images.
-sed -i -E "s/\&\&(.+?-exec strip.+)/\1/" tmp
-sed -i '/exec strip/i\    if [[ \$PHP_DEBUG != 1 ]]; then \\' tmp
-sed -i '/exec strip/a\    fi; \\' tmp
-sed -i '/\$PHP_EXTRA_CONFIGURE_ARGS/i\        $(test "${PHP_DEBUG}" = 1 && echo '"'"'--enable-debug'"'"') \\' tmp
+  fullVersion=$(grep -oP '(?<=^ENV PHP_VERSION )([0-9\.]+)' ${ver}/alpine3.15/fpm/Dockerfile.wodby)
+  minorVersion=$(echo "${fullVersion}" | grep -oE '^[0-9]+\.[0-9]+')
 
-mv tmp Dockerfile-alpine.wodby.template
-cp update.sh tmp
-
-# Exclude 8.0-rc
-sed -i '/versions=( "${versions\[@\]%\/}" )/a\
-delete=(8.0-rc) \
-for target in "${delete[@]}"; do \
-  for i in "${!versions[@]}"; do \
-    if [[ ${versions[i]} = "${target}" ]]; then \
-      unset versions[i] \
-    fi \
-  done \
-done' tmp
-
-# Use our template for fmp alpine variants.
-sed -i 's/Dockerfile-alpine.template/Dockerfile-alpine.wodby.template/' tmp
-sed -i 's|\[ -d "$version/$suite/$variant" \]|\[ -f "$version/$suite/$variant/Dockerfile.wodby" \]|' tmp
-sed -i 's/\/Dockerfile"/\/Dockerfile.wodby"/' tmp
-# Change .travis.yml modifications.
-sed -i -E 's/^(echo "\$travis.*)/#\1/' tmp
-sed -i '/fullVersion=/a\    sed -i -E "s/(PHP$majorVersion$minorVersion)=.*/\\1=$fullVersion/" .travis.yml\n' tmp
-# Update Makefile.
-sed -i '/gawk/i\            sed -i -E "s/(PHP_VER \\?= ).+/\\1$fullVersion/" "$version/$suite/$variant/Makefile"' tmp
-# Update README.
-sed -i '/fullVersion=/a\    sed -i -E "s/\\`$majorVersion\.$minorVersion\.[0-9]+\\`/\\`$fullVersion\\`/" README.md' tmp
-sed -i '/fullVersion=/a\\n    sed -i -E "s/\\`$majorVersion\.$minorVersion\.[0-9]+-debug\\`/\\`$fullVersion-debug\\`/" README.md' tmp
-
-mv tmp update.wodby.sh
-
-./update.wodby.sh
-
-rm Dockerfile-alpine.wodby.template
-rm update.wodby.sh
+  # Update gh workflow
+  sed -i -E "s/(version): '${minorVersion//\./\\.}\.[0-9]+'/\1: '${fullVersion}'/" .github/workflows/workflow.yml
+  sed -i -E "s/(tags): ${minorVersion//\./\\.}\.[0-9]+/\1: ${fullVersion}/" .github/workflows/workflow.yml
+  # Update README.
+  sed -i -E "s/\`${minorVersion//\./\\.}\.[0-9]+\`/\`${fullVersion}\`/" README.md
+done
