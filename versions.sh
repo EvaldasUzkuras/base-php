@@ -3,6 +3,11 @@ set -Eeuo pipefail
 
 # https://www.php.net/gpg-keys.php
 declare -A gpgKeys=(
+	# https://wiki.php.net/todo/php81
+	# krakjoe & ramsey & patrickallaert
+	# https://www.php.net/gpg-keys.php#gpg-8.1
+	[8.1]='528995BFEDFBA7191D46839EF9BA0ADA31CBD89E 39B641343D8C104B2B146DC3F9C39DC0B9698544 F1F692238FBC1666E5A5CCD4199F9DFEF6FFBAFD'
+
 	# https://wiki.php.net/todo/php80
 	# pollita & carusogabriel
 	# https://www.php.net/gpg-keys.php#gpg-8.0
@@ -94,7 +99,7 @@ for version in "${versions[@]}"; do
 	gpgKey="${gpgKeys[$rcVersion]:-}"
 	if [ -z "$gpgKey" ]; then
 		echo >&2 "ERROR: missing GPG key fingerprint for $version"
-		echo >&2 "  try looking on https://www.php.net/downloads.php#gpg-$version"
+		echo >&2 "  try looking on https://www.php.net/downloads.php#gpg-$rcVersion"
 		echo >&2 "  (and update 'gpgKeys' array in '$BASH_SOURCE')"
 		exit 1
 	fi
@@ -112,13 +117,20 @@ for version in "${versions[@]}"; do
 	variants='[]'
 	# order here controls the order of the library/ file
 	for suite in \
+		bullseye \
 		buster \
-		stretch \
-		alpine3.12 \
-		alpine3.11 \
+		alpine3.15 \
+		alpine3.14 \
 	; do
 		for variant in cli apache fpm zts; do
-			[ -d "$version/$suite/$variant" ] || continue
+			if [[ "$suite" = alpine* ]]; then
+				if [ "$variant" = 'apache' ]; then
+					continue
+				elif [ "$variant" = 'zts' ] && [[ "$rcVersion" != 7.* ]]; then
+					# https://github.com/docker-library/php/issues/1074
+					continue
+				fi
+			fi
 			export suite variant
 			variants="$(jq <<<"$variants" -c '. + [ env.suite + "/" + env.variant ]')"
 		done

@@ -48,8 +48,6 @@ RUN set -eux; \
 	chown www-data:www-data /var/www/html; \
 	chmod 777 /var/www/html
 
-ENV PHP_EXTRA_CONFIGURE_ARGS --enable-zts --disable-cgi
-
 # Apply stack smash protection to functions using local buffers and alloca()
 # Make PHP's main executable position-independent (improves ASLR security mechanism, and has no performance impact on x86_64)
 # Enable optimization (-O2)
@@ -62,9 +60,9 @@ ENV PHP_LDFLAGS="-Wl,-O1 -pie"
 
 ENV GPG_KEYS 1729F83938DA44E27BA0F4D3DBDB397470D12172 BFDDD28642824F8118EF77909B67A5C12229118F
 
-ENV PHP_VERSION 8.0.0
-ENV PHP_URL="https://www.php.net/distributions/php-8.0.0.tar.xz" PHP_ASC_URL="https://www.php.net/distributions/php-8.0.0.tar.xz.asc"
-ENV PHP_SHA256="b5278b3eef584f0c075d15666da4e952fa3859ee509d6b0cc2ed13df13f65ebb"
+ENV PHP_VERSION 8.0.13
+ENV PHP_URL="https://www.php.net/distributions/php-8.0.13.tar.xz" PHP_ASC_URL="https://www.php.net/distributions/php-8.0.13.tar.xz.asc"
+ENV PHP_SHA256="cd976805ec2e9198417651027dfe16854ba2c2c388151ab9d4d268513d52ed52"
 
 RUN set -eux; \
 	\
@@ -86,7 +84,7 @@ RUN set -eux; \
 		curl -fsSL -o php.tar.xz.asc "$PHP_ASC_URL"; \
 		export GNUPGHOME="$(mktemp -d)"; \
 		for key in $GPG_KEYS; do \
-			gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+			gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
 		done; \
 		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
 		gpgconf --kill all; \
@@ -106,16 +104,14 @@ RUN set -eux; \
 	apt-get install -y --no-install-recommends \
 		libargon2-dev \
 		libcurl4-openssl-dev \
-		libedit-dev \
 		libonig-dev \
+		libreadline-dev \
 		libsodium-dev \
 		libsqlite3-dev \
 		libssl-dev \
 		libxml2-dev \
 		zlib1g-dev \
-		${PHP_EXTRA_BUILD_DEPS:-} \
 	; \
-	rm -rf /var/lib/apt/lists/*; \
 	\
 	export \
 		CFLAGS="$PHP_CFLAGS" \
@@ -150,7 +146,7 @@ RUN set -eux; \
 		--enable-mbstring \
 # --enable-mysqlnd is included here because it's harder to compile after the fact than extensions are (since it's a plugin for several extensions, not an extension in itself)
 		--enable-mysqlnd \
-# https://wiki.php.net/rfc/argon2_password_hash (7.2+)
+# https://wiki.php.net/rfc/argon2_password_hash
 		--with-password-argon2 \
 # https://wiki.php.net/rfc/libsodium
 		--with-sodium=shared \
@@ -159,24 +155,36 @@ RUN set -eux; \
 		--with-sqlite3=/usr \
 		\
 		--with-curl \
-		--with-libedit \
 		--with-openssl \
+		--with-readline \
 		--with-zlib \
 		\
 # in PHP 7.4+, the pecl/pear installers are officially deprecated (requiring an explicit "--with-pear")
 		--with-pear \
 		\
 # bundled pcre does not support JIT on s390x
-# https://manpages.debian.org/stretch/libpcre3-dev/pcrejit.3.en.html#AVAILABILITY_OF_JIT_SUPPORT
+# https://manpages.debian.org/bullseye/libpcre3-dev/pcrejit.3.en.html#AVAILABILITY_OF_JIT_SUPPORT
 		$(test "$gnuArch" = 's390x-linux-gnu' && echo '--without-pcre-jit') \
 		--with-libdir="lib/$debMultiarch" \
 		\
-		${PHP_EXTRA_CONFIGURE_ARGS:-} \
+		--disable-cgi \
+		\
+# https://github.com/docker-library/php/pull/939#issuecomment-730501748
+		--enable-embed \
+		\
+		--enable-zts \
 	; \
 	make -j "$(nproc)"; \
 	find -type f -name '*.a' -delete; \
 	make install; \
-	find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; \
+	find \
+		/usr/local \
+		-type f \
+		-perm '/0111' \
+		-exec sh -euxc ' \
+			strip --strip-all "$@" || : \
+		' -- '{}' + \
+	; \
 	make clean; \
 	\
 # https://github.com/docker-library/php/issues/692 (copy default example "php.ini" files somewhere easily discoverable)
@@ -197,6 +205,7 @@ RUN set -eux; \
 		| xargs -r apt-mark manual \
 	; \
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+	rm -rf /var/lib/apt/lists/*; \
 	\
 # update pecl channel definitions https://github.com/docker-library/php/issues/443
 	pecl update-channels; \
