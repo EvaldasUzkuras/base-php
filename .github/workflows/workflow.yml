@@ -27,7 +27,7 @@ jobs:
       with:
         version: '8.1.0'
         tags: 8.1.0,8.1,8,latest
-        workdir: 7.3/alpine3.15/fpm
+        workdir: 8.1/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
   php-80:
     runs-on: ubuntu-latest
