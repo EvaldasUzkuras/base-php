@@ -7,7 +7,6 @@
 
 This repository is a fork of https://github.com/docker-library/php with a few changes:
 
-* Base image set to [wodby/alpine](https://github.com/wodby/alpine)
 * We build only Alpine-based FPM variants
 * All images based on [alpine](https://github.com/wodby/alpine) 3.13 version due to [this](https://github.com/alpinelinux/docker-alpine/issues/182) change in 3.14 that prevents us from running it on older docker versions
 
