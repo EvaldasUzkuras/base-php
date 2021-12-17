@@ -20,7 +20,7 @@ Supported tags and respective `Dockerfile` links:
 
 * `8.1.0`, `8.1`, `8`, `latest` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.1/alpine3.15/fpm/Dockerfile.wodby)
 * `8.0.13`, `8.0` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
-* `7.4.26`, `7.4`, `7` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
+* `7.4.27`, `7.4`, `7` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
 * `7.3.33`, `7.3` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
 
 All images built for `linux/amd64` and `linux/arm64`
