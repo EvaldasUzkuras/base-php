@@ -19,7 +19,7 @@ This repository is a fork of https://github.com/docker-library/php with a few ch
 Supported tags and respective `Dockerfile` links:
 
 * `8.1.1`, `8.1`, `8`, `latest` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.1/alpine3.15/fpm/Dockerfile.wodby)
-* `8.0.14`, `8.0` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
+* `8.0.15`, `8.0` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
 * `7.4.27`, `7.4`, `7` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
 * `7.3.33`, `7.3` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
 
