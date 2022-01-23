@@ -25,8 +25,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: '8.1.1'
-        tags: 8.1.1,8.1,8,latest
+        version: '8.1.2'
+        tags: 8.1.2,8.1,8,latest
         workdir: 8.1/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
   php-80:
