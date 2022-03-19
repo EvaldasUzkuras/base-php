@@ -3,7 +3,6 @@
 [![Build Status](https://github.com/wodby/base-php/workflows/Build%20docker%20image/badge.svg)](https://github.com/wodby/base-php/actions)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wodby/base-php.svg)](https://hub.docker.com/r/wodby/base-php)
 [![Docker Stars](https://img.shields.io/docker/stars/wodby/base-php.svg)](https://hub.docker.com/r/wodby/base-php)
-[![Docker Layers](https://images.microbadger.com/badges/image/wodby/base-php.svg)](https://microbadger.com/images/wodby/base-php)
 
 This repository is a fork of https://github.com/docker-library/php with a few changes:
 
@@ -20,7 +19,6 @@ Supported tags and respective `Dockerfile` links:
 
 * `8.1.4`, `8.1`, `8`, `latest` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.1/alpine3.15/fpm/Dockerfile.wodby)
 * `8.0.17`, `8.0` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
-* `7.4.28`, `7.4`, `7` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
-* `7.3.33`, `7.3` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.3/alpine3.15/fpm/Dockerfile.wodby)
+* `7.4.28`, `7.4`, `7` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.4/alpine3.15/fpm/Dockerfile.wodby)
 
 All images built for `linux/amd64` and `linux/arm64`

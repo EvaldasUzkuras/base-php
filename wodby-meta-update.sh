@@ -2,7 +2,7 @@
 
 set -ex
 
-versions=('7.3' '7.4' '8.0' '8.1')
+versions=('7.4' '8.0' '8.1')
 for ver in "${versions[@]}"; do
   cp ${ver}/alpine3.15/fpm/Dockerfile ${ver}/alpine3.15/fpm/Dockerfile.wodby
 
