@@ -33,6 +33,7 @@ jobs:
         tags: ${{ env.PHP81 }}-alpine,8.1-alpine,8-alpine,${{ env.PHP81 }},8.1,8,alpine,latest
         workdir: 8.1/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
+        alpine_ver: 3.15
   php-80-alpine315:
     runs-on: ubuntu-latest
     steps:
@@ -47,6 +48,7 @@ jobs:
         tags: ${{ env.PHP80 }}-alpine,8.0-alpine,8-alpine,${{ env.PHP80 }},8.0
         workdir: 8.0/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
+        alpine_ver: 3.15
   php-74-alpine315:
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +63,7 @@ jobs:
         tags: ${{ env.PHP74 }}-alpine,7.4-alpine,7-alpine,${{ env.PHP74 }},7.4,7
         workdir: 7.4/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
+        alpine_ver: 3.15
   php-81-alpine313:
     runs-on: ubuntu-latest
     steps:
