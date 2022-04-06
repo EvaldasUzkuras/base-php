@@ -29,8 +29,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: "${PHP81}"
-        tags: "${PHP81}-alpine,8.1-alpine,8-alpine,${PHP81},8.1,8,alpine,latest"
+        version: ${{ env.PHP81 }}
+        tags: ${{ env.PHP81 }}-alpine,8.1-alpine,8-alpine,${{ env.PHP81 }},8.1,8,alpine,latest
         workdir: 8.1/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
   php-80-alpine315:
@@ -43,8 +43,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: "${PHP80}"
-        tags: '${PHP80}-alpine,8.0-alpine,8-alpine,${PHP80},8.0'
+        version: ${{ env.PHP80 }}
+        tags: ${{ env.PHP80 }}-alpine,8.0-alpine,8-alpine,${{ env.PHP80 }},8.0
         workdir: 8.0/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
   php-74-alpine315:
@@ -57,8 +57,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: "${PHP74}"
-        tags: "${PHP74}-alpine,7.4-alpine,7-alpine,${PHP74},7.4,7"
+        version: ${{ env.PHP74 }}
+        tags: ${{ env.PHP74 }}-alpine,7.4-alpine,7-alpine,${{ env.PHP74 }},7.4,7
         workdir: 7.4/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
   php-81-alpine313:
@@ -71,8 +71,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: "${PHP81}"
-        tags: "${PHP81}-alpine3.13,8.1-alpine3.13,8-alpine3.13,alpine3.13"
+        version: ${{ env.PHP81 }}
+        tags: ${{ env.PHP81 }}-alpine3.13,8.1-alpine3.13,8-alpine3.13,alpine3.13
         workdir: 8.1/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
         alpine_ver: 3.13
@@ -86,8 +86,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: "${PHP80}"
-        tags: "${PHP80}-alpine3.13,8.0-alpine3.13"
+        version: ${{ env.PHP80 }}
+        tags: ${{ env.PHP80 }}-alpine3.13,8.0-alpine3.13
         workdir: 8.0/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
         alpine_ver: 3.13
@@ -101,8 +101,8 @@ jobs:
     - uses: docker/setup-buildx-action@v1
     - uses: ./.github/actions
       with:
-        version: "${PHP74}"
-        tags: "${PHP74}-alpine3.13,7.4-alpine3.13,7-alpine3.13"
+        version: ${{ env.PHP74 }}
+        tags: ${{ env.PHP74 }}-alpine3.13,7.4-alpine3.13,7-alpine3.13
         workdir: 7.4/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
         alpine_ver: 3.13
