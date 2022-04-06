@@ -12,7 +12,7 @@ inputs:
     required: true
   alpine_ver:
     description: alpine version
-    required: true
+    required: false
   platform:
     description: docker platform
     required: false
