@@ -16,8 +16,7 @@ for ver in "${versions[@]}"; do
   minorVersion=$(echo "${fullVersion}" | grep -oE '^[0-9]+\.[0-9]+')
 
   # Update gh workflow
-  sed -i -E "s/(version): '${minorVersion//\./\\.}\.[0-9]+'/\1: '${fullVersion}'/" .github/workflows/workflow.yml
-  sed -i -E "s/(tags): ${minorVersion//\./\\.}\.[0-9]+/\1: ${fullVersion}/" .github/workflows/workflow.yml
+  sed -i -E "s/(PHP${minorVersion//\./}): '${minorVersion//\./\\.}\.[0-9]+'/\1: '${fullVersion}'/" .github/workflows/workflow.yml
   # Update README.
-  sed -i -E "s/\`${minorVersion//\./\\.}\.[0-9]+\`/\`${fullVersion}\`/" README.md
+  sed -i -E "s/${minorVersion//\./\\.}\.[0-9]+/${fullVersion}/g" README.md
 done
