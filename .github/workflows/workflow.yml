@@ -30,7 +30,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.PHP81 }}
-        tags: ${{ env.PHP81 }}-alpine3.15,8.1-alpine3.15,8-alpine3.15,${{ env.PHP81 }}-alpine,8.1-alpine,8-alpine,${{ env.PHP81 }},8.1,8,alpine3.15,alpine,latest
+        tags: ${{ env.PHP81 }}-alpine3.15,8.1-alpine3.15,8-alpine3.15,${{ env.PHP81 }},8.1,8,alpine3.15,latest
         workdir: 8.1/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
         alpine_ver: 3.15
@@ -45,7 +45,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.PHP80 }}
-        tags: ${{ env.PHP80 }}-alpine3.15,8.0-alpine3.15,8-alpine3.15,${{ env.PHP80 }}-alpine,8.0-alpine,8-alpine,${{ env.PHP80 }},8.0
+        tags: ${{ env.PHP80 }}-alpine3.15,8.0-alpine3.15,8-alpine3.15,${{ env.PHP80 }},8.0
         workdir: 8.0/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
         alpine_ver: 3.15
@@ -60,7 +60,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.PHP74 }}
-        tags: ${{ env.PHP74 }}-alpine3.15,7.4-alpine3.15,7-alpine3.15,${{ env.PHP74 }}-alpine,7.4-alpine,7-alpine,${{ env.PHP74 }},7.4,7
+        tags: ${{ env.PHP74 }}-alpine3.15,7.4-alpine3.15,7-alpine3.15,${{ env.PHP74 }},7.4,7
         workdir: 7.4/alpine3.15/fpm
         platform: linux/amd64,linux/arm64
         alpine_ver: 3.15
