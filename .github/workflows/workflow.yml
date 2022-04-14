@@ -16,7 +16,7 @@ env:
   BASE_IMAGE_STABILITY_TAG: 2.10.6
   PHP81: '8.1.4'
   PHP80: '8.0.17'
-  PHP74: '7.4.28'
+  PHP74: '7.4.29'
 
 jobs:
   php-81-alpine315:

@@ -19,9 +19,9 @@ Supported tags and respective `Dockerfile` links:
 
 * `8.1.4-alpine3.15`, `8.1-alpine3.15`, `8-alpine3.15`, `8.1.4`, `8.1`, `8`, `alpine3.15`, `latest` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.1/alpine3.15/fpm/Dockerfile.wodby)
 * `8.0.17-alpine3.15`, `8.0-alpine3.15`, `8.0.17`, `8.0` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
-* `7.4.28-alpine3.15`, `7.4-alpine3.15`, `7-alpine3.15`, `7.4.28`, `7.4`, `7`,  [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.4/alpine3.15/fpm/Dockerfile.wodby)
+* `7.4.29-alpine3.15`, `7.4-alpine3.15`, `7-alpine3.15`, `7.4.29`, `7.4`, `7`,  [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.4/alpine3.15/fpm/Dockerfile.wodby)
 * `8.1.4-alpine3.13`, `8.1-alpine3.13`, `8-alpine3.13`, `alpine3.13` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.1/alpine3.15/fpm/Dockerfile.wodby)
 * `8.0.17-alpine3.13`, `8.0-alpine3.13` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/8.0/alpine3.15/fpm/Dockerfile.wodby)
-* `7.4.28-alpine3.13`, `7.4-alpine3.13` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.4/alpine3.15/fpm/Dockerfile.wodby)
+* `7.4.29-alpine3.13`, `7.4-alpine3.13` [_(Dockerfile)_](https://github.com/wodby/base-php/tree/master/7.4/alpine3.15/fpm/Dockerfile.wodby)
 
 All images built for `linux/amd64` and `linux/arm64`
