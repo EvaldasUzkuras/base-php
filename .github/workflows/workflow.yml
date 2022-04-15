@@ -15,7 +15,7 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   BASE_IMAGE_STABILITY_TAG: 2.10.6
   PHP81: '8.1.5'
-  PHP80: '8.0.17'
+  PHP80: '8.0.18'
   PHP74: '7.4.29'
 
 jobs:
